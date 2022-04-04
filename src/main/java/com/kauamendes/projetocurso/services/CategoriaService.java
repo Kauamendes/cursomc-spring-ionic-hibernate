@@ -3,10 +3,12 @@ package com.kauamendes.projetocurso.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.kauamendes.projetocurso.domain.Categoria;
 import com.kauamendes.projetocurso.repositories.CategoriaRepository;
+import com.kauamendes.projetocurso.services.exceptions.DateIntegrityException;
 
 @Service
 public class CategoriaService {
@@ -28,6 +30,15 @@ public class CategoriaService {
 	public Categoria update(Categoria obj) {
 		find(obj.getId());
 		return repo.save(obj);
+	}
+	
+	public void delete(Integer id) {
+		find(id);
+		try {
+		repo.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DateIntegrityException("Não é ossivel excluir uma categoria que possui produtos");
+		}
 	}
 	
 }
