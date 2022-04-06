@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.kauamendes.projetocurso.DTO.ClienteDTO;
 import com.kauamendes.projetocurso.domain.Cliente;
-import com.kauamendes.projetocurso.domain.Cliente;
 import com.kauamendes.projetocurso.repositories.ClienteRepository;
 import com.kauamendes.projetocurso.services.exceptions.DateIntegrityException;
 
