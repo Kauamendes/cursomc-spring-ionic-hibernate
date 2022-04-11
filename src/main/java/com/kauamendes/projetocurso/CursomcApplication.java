@@ -17,7 +17,7 @@ import com.kauamendes.projetocurso.domain.Endereco;
 import com.kauamendes.projetocurso.domain.Estado;
 import com.kauamendes.projetocurso.domain.ItemPedido;
 import com.kauamendes.projetocurso.domain.PagamentoComBoleto;
-import com.kauamendes.projetocurso.domain.PagamentoComCartão;
+import com.kauamendes.projetocurso.domain.PagamentoComCartao;
 import com.kauamendes.projetocurso.domain.Pedido;
 import com.kauamendes.projetocurso.domain.Produto;
 import com.kauamendes.projetocurso.domain.enums.EstadoPagamento;
@@ -146,7 +146,7 @@ public class CursomcApplication implements CommandLineRunner{
 		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"),cli1,e1);
 		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 19:35"),cli1,e2);
 		
-		PagamentoComCartão pagto1 = new PagamentoComCartão(null, EstadoPagamento.QUITADO, ped1, 6);
+		PagamentoComCartao pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
 		PagamentoComBoleto pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"), null);
 		
 		ped1.setPagamento(pagto1);

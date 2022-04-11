@@ -2,19 +2,21 @@ package com.kauamendes.projetocurso.domain;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.kauamendes.projetocurso.domain.enums.EstadoPagamento;
 
 @Entity
-public class PagamentoComCartão extends Pagamento {
+@JsonTypeName("pagamentoComCartao")
+public class PagamentoComCartao extends Pagamento {
 
 	private static final long serialVersionUID = 1L;
 	private Integer numeroDeParcelas;
 	
-	public PagamentoComCartão() {
+	public PagamentoComCartao() {
 		
 	}
 
-	public PagamentoComCartão(Integer id, EstadoPagamento estado, Pedido pedido, Integer numeroDeParcelas) {
+	public PagamentoComCartao(Integer id, EstadoPagamento estado, Pedido pedido, Integer numeroDeParcelas) {
 		super(id, estado, pedido);
 		this.numeroDeParcelas = numeroDeParcelas;
 	}
