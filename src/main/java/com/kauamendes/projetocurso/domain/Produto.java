@@ -16,7 +16,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -28,7 +27,7 @@ public class Produto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer Id;
 	
-	private String Nome;
+	private String nome;
 	
 	private Double Preco;
 	
@@ -52,11 +51,11 @@ public class Produto implements Serializable {
 	}
 
 	public String getNome() {
-		return Nome;
+		return nome;
 	}
 
 	public void setNome(String nome) {
-		Nome = nome;
+		this.nome = nome;
 	}
 
 	public Double getPreco() {
@@ -78,14 +77,14 @@ public class Produto implements Serializable {
 	public Produto() {
 		super();
 	}
-
+	
 	public Produto(Integer id, String nome, Double preco) {
 		super();
 		Id = id;
-		Nome = nome;
+		this.nome = nome;
 		Preco = preco;
 	}
-	
+
 	@JsonIgnore
 	public List<Pedido> getPedidos() {
 		List<Pedido> lista = new ArrayList<>();
