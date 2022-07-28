@@ -1,12 +1,14 @@
 package com.kauamendes.projetocurso.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.kauamendes.projetocurso.domain.enums.EstadoPagamento;
 
 @Entity
 @JsonTypeName("pagamentoComCartao")
+
 public class PagamentoComCartao extends Pagamento {
 
 	private static final long serialVersionUID = 1L;
