@@ -94,6 +94,7 @@ public class CursomcApplication implements CommandLineRunner{
 		Cidade c1 = new Cidade(null,"Tubarão",est1);
 		Cidade c2 = new Cidade(null,"Porto Alegre",est2);
 		Cidade c3 = new Cidade(null,"Gramado",est2);
+		Cidade c4 = new Cidade(null, "Laguna",est1);
 			
 		cat1.getProdutos().addAll(Arrays.asList(p1,p2,p3));
 		cat2.getProdutos().addAll(Arrays.asList(p2));
@@ -120,14 +121,14 @@ public class CursomcApplication implements CommandLineRunner{
 		p10.getCategorias().addAll(Arrays.asList(cat6));
 		p11.getCategorias().addAll(Arrays.asList(cat7));		
 		
-		est1.getCidades().addAll(Arrays.asList(c1));
+		est1.getCidades().addAll(Arrays.asList(c1,c4));
 		est2.getCidades().addAll(Arrays.asList(c2,c3));
 		
 		categoriaRepository.saveAll(Arrays.asList(cat1,cat2,cat3,cat4,cat5,cat6,cat7));
 		produtoRepository.saveAll(Arrays.asList(p1,p2,p3));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
 		estadoRepository.saveAll(Arrays.asList(est1,est2));
-		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
+		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3,c4));
 		
 		Cliente cli1 = new Cliente(null,"Maria Silva","maria@gmail.com","36378912377",TipoCliente.PESSOAFISICA);
 		
