@@ -2,6 +2,7 @@ package com.kauamendes.projetocurso.services;
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 
 import com.kauamendes.projetocurso.domain.Pedido;
