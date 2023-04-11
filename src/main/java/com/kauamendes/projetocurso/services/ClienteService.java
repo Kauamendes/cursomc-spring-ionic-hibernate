@@ -1,6 +1,7 @@
 package com.kauamendes.projetocurso.services;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,14 @@ import com.kauamendes.projetocurso.domain.Categoria;
 import com.kauamendes.projetocurso.domain.Cidade;
 import com.kauamendes.projetocurso.domain.Cliente;
 import com.kauamendes.projetocurso.domain.Endereco;
+import com.kauamendes.projetocurso.domain.enums.Perfil;
 import com.kauamendes.projetocurso.domain.enums.TipoCliente;
 import com.kauamendes.projetocurso.repositories.ClienteRepository;
 import com.kauamendes.projetocurso.repositories.EnderecoRepository;
+import com.kauamendes.projetocurso.security.UserSS;
+import com.kauamendes.projetocurso.services.exceptions.AuthorizationException;
 import com.kauamendes.projetocurso.services.exceptions.DateIntegrityException;
+import com.kauamendes.projetocurso.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ClienteService {
@@ -36,9 +41,14 @@ public class ClienteService {
 	private BCryptPasswordEncoder be;
 	
 	public Cliente find(Integer id) {
+		
+		UserSS usuarioLogado = UserService.authenticated();
+		if (Objects.isNull(usuarioLogado) || !usuarioLogado.hasRole(Perfil.ADMIN) && !Objects.equals(id, usuarioLogado.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
 		Optional<Cliente> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new com.kauamendes.projetocurso.services.exceptions.ObjectNotFoundException(
-				"Objeto não encontrado! ID: " +id +", Tipo:" + Cliente.class.getName()));
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " +id +", Tipo:" + Cliente.class.getName()));
 	}
 	
 	@Transactional
