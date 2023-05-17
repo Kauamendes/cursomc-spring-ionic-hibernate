@@ -4,8 +4,13 @@ import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.kauamendes.projetocurso.domain.Categoria;
+import com.kauamendes.projetocurso.domain.Cliente;
 import com.kauamendes.projetocurso.domain.ItemPedido;
 import com.kauamendes.projetocurso.domain.PagamentoComBoleto;
 import com.kauamendes.projetocurso.domain.Pedido;
@@ -14,6 +19,7 @@ import com.kauamendes.projetocurso.repositories.ClienteRepository;
 import com.kauamendes.projetocurso.repositories.ItemPedidoRepository;
 import com.kauamendes.projetocurso.repositories.PagamentoRepository;
 import com.kauamendes.projetocurso.repositories.PedidoRepository;
+import com.kauamendes.projetocurso.security.UserSS;
 
 @Service
 public class PedidoService {
@@ -43,6 +49,13 @@ public class PedidoService {
 		Optional<Pedido> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new com.kauamendes.projetocurso.services.exceptions.ObjectNotFoundException(
 				"Objeto não encontrado! ID: " +id +", Tipo:" + Pedido.class.getName()));
+	}
+	
+	public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		UserSS user = UserService.authenticated();
+		Cliente cliente = clienteService.find(user.getId()); 
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return repo.findByCliente(cliente,pageRequest);
 	}
 	
 	public Pedido insert(Pedido obj) {
