@@ -1,6 +1,7 @@
 package com.kauamendes.projetocurso.services;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import com.kauamendes.projetocurso.repositories.ItemPedidoRepository;
 import com.kauamendes.projetocurso.repositories.PagamentoRepository;
 import com.kauamendes.projetocurso.repositories.PedidoRepository;
 import com.kauamendes.projetocurso.security.UserSS;
+import com.kauamendes.projetocurso.services.exceptions.AuthorizationException;
 
 @Service
 public class PedidoService {
@@ -53,8 +55,11 @@ public class PedidoService {
 	
 	public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		UserSS user = UserService.authenticated();
-		Cliente cliente = clienteService.find(user.getId()); 
+		if (Objects.isNull(user)) {
+			throw new AuthorizationException("Acesso negado");
+		}
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		Cliente cliente = clienteService.find(user.getId()); 
 		return repo.findByCliente(cliente,pageRequest);
 	}
 	
