@@ -14,6 +14,7 @@ import com.kauamendes.projetocurso.DTO.CategoriaDTO;
 import com.kauamendes.projetocurso.domain.Categoria;
 import com.kauamendes.projetocurso.repositories.CategoriaRepository;
 import com.kauamendes.projetocurso.services.exceptions.DateIntegrityException;
+import com.kauamendes.projetocurso.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
@@ -23,7 +24,7 @@ public class CategoriaService {
 	
 	public Categoria find(Integer id) {
 		Optional<Categoria> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new com.kauamendes.projetocurso.services.exceptions.ObjectNotFoundException(
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! ID: " +id +", Tipo:" + Categoria.class.getName()));
 	}
 	
